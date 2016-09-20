@@ -1,6 +1,6 @@
 (function() {
 
-  var app = angular.module('starter', ['ionic', 'ngCordova']);
+  var app = angular.module('starter', ['ionic', 'ionic.native']);
 
   app.controller('CameraCtrl', function($scope, $cordovaCamera) {
     $scope.pictureUrl = 'http://placehold.it/300x300';
@@ -13,7 +13,9 @@
       $cordovaCamera.getPicture(options)
         .then(function(data) {
           console.log('camera data: ' + angular.toJson(data));
-          $scope.pictureUrl = "data:image/jpeg;base64," + data;
+          $scope.$apply(function(){
+            $scope.pictureUrl = "data:image/jpeg;base64," + data;
+          });
         }, function(error) {
           console.log('camera error: ' + angular.toJson(data));
         });
